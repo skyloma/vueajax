@@ -5,6 +5,10 @@ import App from './App'
 import router from './router'
 import Util from './libs/util';
 import http  from  './libs/http'
+import MuseUI from 'muse-ui'
+import 'muse-ui/dist/muse-ui.css'
+
+Vue.use(MuseUI)
 Vue.config.productionTip = false
 Vue.prototype.$http = http;
 

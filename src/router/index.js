@@ -1,20 +1,27 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Hello from '../components/Hello.vue'
+import App from '../App.vue'
 import About from '../components/About.vue'
+import ProjectList from '../components/ProjectList.vue'
 Vue.use(Router)
 
 export default new Router({
   routes: [
     {
       path: '/',
-      name: 'Hello',
-      component: Hello
+      name: 'App',
+      component: App
     },
     {
       path: '/About',
       name: 'About',
       component: About
+    }
+    ,
+    {
+      path: '/ProjectList',
+      name: 'ProjectList',
+      component: ProjectList
     }
   ]
 })

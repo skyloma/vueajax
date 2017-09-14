@@ -51,13 +51,14 @@ util.ajax = axios.create({
 })
 
 util.ajax.defaults.headers.common['Authorization'] = "AUTH_TOKEN"
-// util.ajax.defaults.headers.common['Access-Control-Allow-Origin'] = "*"
+util.ajax.defaults.headers.common['Access-Control-Allow-Origin'] = "*"
 util.ajax.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded'
 
 
 //添加一个请求拦截器
 util.ajax.interceptors.request.use(function (config) {
   //在请求发出之前进行一些操作
+  // config.headers.push()
   return config
 }, function (err) {
   //Do something with request error

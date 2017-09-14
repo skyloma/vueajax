@@ -48,6 +48,10 @@
           {
             'title':'About',
             'herf' :'About'
+          },
+          {
+            'title':'项目列表',
+            'herf' :'ProjectList'
           }
         ]
       }
@@ -62,21 +66,21 @@
       }
 
     },
-//    created() {
-//
-//
-//      var json={
-//        username: 'zjt',
-//        pwd: '123'}
-//        this.$http.postForm('user/login',json)
-//        .then(response => {
-//          alert(JSON.stringify(response.data.Content.username))
-//        })
-//        .catch(e => {
-//          // this.errors.push(e)
-//        })
-//
-//    }
+    created() {
+
+
+      var json={
+        username: 'zjt',
+        pwd: '123'}
+        this.$http.postForm('user/login',json)
+        .then(response => {
+          alert(JSON.stringify(response.data.Content.username))
+        })
+        .catch(e => {
+          // this.errors.push(e)
+        })
+
+    }
 
   }
 </script>

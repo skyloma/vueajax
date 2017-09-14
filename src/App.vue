@@ -55,6 +55,11 @@
             'title':'About',
             'herf' :'About'
           }
+          ,
+          {
+            'title':'项目列表',
+            'herf' :'ProjectList'
+          }
         ]
       }
     },
@@ -63,6 +68,10 @@
         // http.get("department/list",{})
       },
       toggle (flag) {
+
+
+        this.$toast("获取数据失败获取数据失败获取数据失败", 1000   )
+
         this.open = !this.open
         this.docked = !flag
       }

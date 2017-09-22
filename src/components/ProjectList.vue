@@ -1,14 +1,24 @@
 <template>
-  <div class="gridlist-demo-container">
-    <mu-grid-list class="gridlist-demo">
+  <div>
+    <mu-table
+              :enableSelectAll="enableSelectAll" :multiSelectable="multiSelectable"
+              :showCheckbox="showCheckbox">
+      <mu-thead slot="header">
+        <mu-tr>
+          <mu-th tooltip="ID">ID</mu-th>
+          <mu-th tooltip="名称">Name</mu-th>
+          <mu-th tooltip="状态">Status</mu-th>
+        </mu-tr>
+      </mu-thead>
+      <mu-tbody>
+        <mu-tr v-for="item,index in tableData"  :key="index" :selected="item.selected">
+          <mu-td>{{index + 1}}</mu-td>
+          <mu-td>{{item.name}}</mu-td>
+          <mu-td>{{item.status}}</mu-td>
+        </mu-tr>
+      </mu-tbody>
+     </mu-table>
 
-      <mu-grid-tile v-for="tile, index in list" :key="index">
-        <img :src="tile.image"/>
-        <span slot="title">{{tile.title}}</span>
-        <span slot="subTitle">by <b>{{tile.author}}</b></span>
-        <mu-icon-button icon="star_border" slot="action"/>
-      </mu-grid-tile>
-    </mu-grid-list>
   </div>
 </template>
 
@@ -16,67 +26,54 @@
   export default {
     data () {
       return {
-        list: [{
-          image: '/images/breakfast.jpg',
-          title: 'Breakfast',
-          author: 'Myron'
-        }, {
-          image: '/images/burger.jpg',
-          title: 'Burger',
-          author: 'Linyu'
-        }, {
-          image: '/images/camera.jpg',
-          title: 'Camera',
-          author: 'ruolin'
-        }, {
-          image: '/images/hats.jpg',
-          title: 'Hats',
-          author: 'kakali'
-        }, {
-          image: '/images/honey.jpg',
-          title: 'Honey',
-          author: 'yuyang'
-        }, {
-          image: '/images/morning.jpg',
-          title: 'Morning',
-          author: 'mokayi'
-        }, {
-          image: '/images/vegetables.jpg',
-          title: 'Vegetables',
-          author: 'NUyyyyyyy'
-        }, {
-          image: '/images/water-plant.jpg',
-          title: 'water',
-          author: 'TDDyyyyyyy'
-        }]
+        tableData: [
+          {
+            name: 'John Smith',
+            status: 'Employed',
+            selected: true
+          },
+          {
+            name: 'Randal White',
+            status: 'Unemployed'
+          },
+          {
+            name: 'Stephanie Sanders',
+            status: 'Employed',
+            selected: true
+          },
+          {
+            name: 'Steve Brown',
+            status: 'Employed'
+          },
+          {
+            name: 'Joyce Whitten',
+            status: 'Employed'
+          },
+          {
+            name: 'Samuel Roberts',
+            status: 'Employed'
+          },
+          {
+            name: 'Adam Moore',
+            status: 'Employed'
+          }
+        ],
+        fixedHeader: true,
+        fixedFooter: true,
+        selectable: true,
+        multiSelectable: true,
+        enableSelectAll: true,
+        showCheckbox: true,
+        height: '300px'
       }
-    },
-        created() {
-
-
-        this.$http.get('project/list' )
-        .then(response => {
-          alert(JSON.stringify(response.data.Content))
-        })
-        .catch(e => {
-          // this.errors.push(e)
-        })
-
     }
-
   }
 </script>
 
-<style>
-  .gridlist-demo-container{
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
-  }
-
-  .gridlist-demo{
-    width: 100%;
-    height: 100%;
-    overflow-y: auto;
+<style lang="css">
+  .demo-table-settings{
+    width: 200px;
+    overflow: hidden;
+    margin: 20px auto 0px;
   }
 </style>

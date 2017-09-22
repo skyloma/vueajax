@@ -5,7 +5,11 @@ Vue.use(Vuex)
 const store = new Vuex.Store({
   state: {
     departs:[],
-    projects:[]
+    projects:[],
+    msg:{
+      isShow:false,
+      text:""
+    }
 
   },
   actions: {
@@ -27,6 +31,11 @@ const store = new Vuex.Store({
       })
 
     }
+    ,
+    SHOW_MSG: function ({commit},msg) {
+      commit('SET_MSG', { msg })
+
+    }
 
 
 
@@ -38,11 +47,16 @@ const store = new Vuex.Store({
     ,
     SET_PROJECT_LIST: (state, { list }) => {
       state.projects = list
+    },
+    SET_MSG: (state, { msg }) => {
+      state.msg = msg
     }
 
   },
-  getters: {},
-  modules: {}
+
+  modules: {},
+
+
 
 })
 

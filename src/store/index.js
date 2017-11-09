@@ -1,64 +1,38 @@
-import Vue from 'vue'
-import Vuex from 'vuex'
+import Vue from "vue";
+import Vuex from "vuex";
+import types from "./mutation-types";
 
 Vue.use(Vuex)
+
 const store = new Vuex.Store({
-  state: {
-    departs:[],
-    projects:[],
-    msg:{
-      isShow:false,
-      text:""
-    }
+  strict: true,  // process.env.NODE_ENV !== 'production', 直接修改state 抛出异常
 
+  getters: {
+    loading: state => state.loading,
+    userInfo:state => state.userInfo,
   },
-  actions: {
-    LOAD_DEPART_LIST: function ({commit}) {
-
-        this.$http.get('department/list').then((response) => {
-          commit('SET_DEPARTS', { list: response.data.Content })
-        }, (err) => {
-          console.log(err)
-        })
-
-    },
-    LOAD_PROJECT_LIST: function ({commit}) {
-
-      this.$http.get('project/list').then((response) => {
-        commit('SET_PROJECT_LIST', { list: response.data.Content })
-      }, (err) => {
-        console.log(err)
-      })
-
-    }
-    ,
-    SHOW_MSG: function ({commit},msg) {
-      commit('SET_MSG', { msg })
-
-    }
-
-
+  state: {
+    loading: false,
+    userInfo:{name:'佚名'},
 
   },
   mutations: {
-    SET_DEPARTS: (state, { list }) => {
-      state.departs = list
-    }
-    ,
-    SET_PROJECT_LIST: (state, { list }) => {
-      state.projects = list
+    //只能同步的函数
+
+
+    [types.LOAD_ING] (state, info) {
+      state.loading = info;
     },
-    SET_MSG: (state, { msg }) => {
-      state.msg = msg
+
+    [types.SET_USER_INFO] (state, info) {
+      state.userInfo = info;
     }
+
+  }, actions: {
+    //异步的函数
+
 
   },
-
-  modules: {},
-
-
-
 })
 
-export default store;
-
+export default store

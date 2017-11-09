@@ -31,7 +31,6 @@
 
     <div :class="open ? 'example-content': 'example-content nav-hide '">
       <div class="content-wrapper">
-
         <router-view></router-view>
       </div>
 

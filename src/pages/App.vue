@@ -16,7 +16,6 @@
       </mu-menu>
       </mu-popover>
     </mu-appbar>
-
     <mu-drawer :open="open" :docked="docked" @close="toggle()" :overlay="open">
       <mu-appbar title="项目管理平台">
       </mu-appbar>

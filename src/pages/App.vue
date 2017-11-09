@@ -19,9 +19,7 @@
 
     <mu-drawer :open="open" :docked="docked" @close="toggle()" :overlay="open">
       <mu-appbar title="项目管理平台">
-
       </mu-appbar>
-
       <mu-list>
         <mu-list-item v-for="item in userInfo.role.menus" :title="item.name" :to="item.href"   >
           <mu-icon slot="left" :value="item.icon"/>

@@ -1,5 +1,5 @@
 <template>
-  <div id="app" class="app">
+  <div id="app"  class="wrapper fixed">
 
     <mu-appbar title="Title" :class="open ? 'example-appbar' : 'example-appbar   nav-hide' ">
       <mu-icon-button icon="menu" slot="left" @click="toggle()"/>

@@ -97,5 +97,9 @@ export default {
         return checkCode(res)
       }
     )
+  },
+  baseURL(){
+    return axios.defaults.baseURL
   }
+
 }

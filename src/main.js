@@ -8,20 +8,24 @@ import MuseUI from 'muse-ui'
 import 'muse-ui/dist/muse-ui.css'
 import Vuex from 'vuex'
 import store from './store'
-import {Message} from 'element-ui'
-// import ElementUI from 'element-ui'
-import 'element-ui/lib/theme-chalk/index.css'
+import ElementUI from 'element-ui'
+import './assets/element-variables.scss'
 import api from "./api";
 import   auth from "./auth"
 Vue.use(Vuex)
-
+Vue.use(ElementUI,{ size: 'small' })
 Vue.use(MuseUI)
+import 'muse-ui/dist/theme-light.css' // 使用 carbon 主题
 Vue.config.productionTip = false
 Vue.prototype.http = http;
 Vue.prototype.api = api;
 Vue.prototype.auth = auth;
 
-Vue.prototype.$message = Message
+import VueClipboard from 'vue-clipboard2'
+Vue.use(VueClipboard)
+
+import VueQuillEditor from 'vue-quill-editor'
+Vue.use(VueQuillEditor)
 
 /* eslint-disable no-new */
 new Vue({

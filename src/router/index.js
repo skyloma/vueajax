@@ -1,15 +1,22 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import App from '../pages/App.vue'
-import About from '../pages/About.vue'
 import Home from '../pages/home.vue'
-import ProjectList from '../pages/project/projectList.vue'
-import ProjectInfo from '../pages/project/ProjectInfo.vue'
-import ProjectAdd from '../pages/project/ProjectAdd.vue'
-import ProjectEdit from '../pages/project/ProjectEdit.vue'
-import bugList from '../pages/bugList.vue'
-import Msg from '../pages/Msg.vue'
+
+import projectList from '../pages/project/projectList.vue'
+import   projectAdd from  '../pages/project/projectAdd.vue'
+import   projectInfo from  '../pages/project/projectInfo.vue'
+import   moudleAdd from '../pages/moudle/moudleAdd.vue'
+import   moudleEdit from '../pages/moudle/moudleEdit.vue'
+import   res from '../pages/moudle/res.vue'
+import   moudleApi from '../pages/moudleApi/moudleApi.vue'
+import   moudleApiRead from '../pages/moudleApi/moudleApiRead.vue'
+import   coderReprot  from '../pages/moudle/coderReport.vue'
+import   bugList  from '../pages/bug/bugList.vue'
+import   bugAdd  from '../pages/bug/bugAdd.vue'
+import   bugEdit  from '../pages/bug/bugEdit.vue'
 import Login from '../pages/login.vue'
+
 Vue.use(Router)
 import auth from "../auth"
 
@@ -24,51 +31,22 @@ const router = new Router({
       path: '/',
       name: 'App',
       component: App,
-      children:[
-        {
-          path: '/about',
-          name: 'About',
-          component: About
-        }
-        ,
-        {
-          path: '/index',
-          name: 'Home',
-          component: Home
-        }
-        ,
-        {
-          path: '/ProjectList',
-          name: 'ProjectList',
-          component: ProjectList
-        },
-        {
-          path: '/ProjectInfo',
-          name: 'ProjectInfo',
-          component: ProjectInfo
-        },
-        {
-          path: '/ProjectAdd',
-          name: 'ProjectAdd',
-          component: ProjectAdd
-        },
-        {
-          path: '/ProjectEdit',
-          name: 'ProjectEdit',
-          component: ProjectEdit
-        }
-        ,
-        {
-          path: '/Msg',
-          name: 'Msg',
-          component: Msg
-        }
-        ,
-        {
-          path: '/bugList',
-          name: 'bug',
-          component: bugList
-        }
+      children: [
+
+        {path: '/index',   name: 'Home',  component: Home  },
+        {path: '/projectList', name: '项目列表', component: projectList},
+        {path: '/projectEdit', name: '编辑项目', component: projectAdd},
+        {path: '/projectAdd', name: '创建新项目', component: projectAdd},
+        {path: '/projectInfo', name: '项目详情', component: projectInfo},
+        {path: '/moudleAdd', name: '新增模块', component: moudleAdd},
+        {path: '/moudleEdit', name: '模块变更', component: moudleEdit},
+        {path: '/coderReprot', name: '工作报告', component: coderReprot},
+        {path: '/ui', name: '设计图/切图', component: res},
+        {path: '/moudleApi', name: 'API', component: moudleApi},
+        {path: '/moudleApiRead', name: 'API', component: moudleApiRead},
+        {path: '/bugList', name: 'bug列表', component: bugList},
+        {path: '/bugAdd', name: '提交新bug', component: bugAdd},
+        {path: '/bugEdit', name: '编辑bug', component: bugEdit}
       ]
     },
 
@@ -86,4 +64,4 @@ router.beforeEach((route, redirect, next) => {
   }
 })
 
-export   default  router;
+export default router;

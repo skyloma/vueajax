@@ -1,141 +1,150 @@
 <template>
-  <div>
-
-    <mu-card z-index="4">
-      <mu-card-header>
-        <h3>
-          项目列表
-        </h3>
-
-        <mu-divider/>
-
-      </mu-card-header>
-
-      <mu-card-text>
-
-        <mu-table :selectable="false":showCheckbox="false" >
-          <mu-thead slot="header">
-            <mu-tr>
-              <mu-th tooltip="ID">ID</mu-th>
-              <mu-th tooltip="名称">Name</mu-th>
-              <mu-th tooltip="版本">版本</mu-th>
-              <mu-th tooltip="状态">状态</mu-th>
-              <mu-th tooltip="操作">操作</mu-th>
-            </mu-tr>
-          </mu-thead>
-          <mu-tbody>
-            <mu-tr v-for="item,index in tableData" :key="index"  >
-              <mu-td>{{item.id}}</mu-td>
-              <mu-td>{{item.name}}</mu-td>
-              <mu-td>{{item.version}}</mu-td>
-              <mu-td>{{item.state}}</mu-td>
-              <mu-td>
-                  <mu-icon-button icon="edit" @click="editClick(item, index)"/>
-                  <mu-icon-button icon="info" @click="readClick(item, index)"/>
-              </mu-td>
-            </mu-tr>
-          </mu-tbody>
-          <mu-tfoot slot="footer">
-            <br/>
-            <mu-pagination :total="tableData.length" :current="current" @pageChange="handleClick">
-            </mu-pagination>
-          </mu-tfoot>
-        </mu-table>
-
-      </mu-card-text>
-      <mu-card-actions>
+  <div slot="body">
 
 
-      </mu-card-actions>
+    <h3 class="box-title" slot="header" style="width: 100%;">
+      <el-button type="primary" icon="el-icon-plus" @click="newAdd" v-if="user.role.eName==='project_manager'">新增</el-button>
+    </h3>
+    <br/>
 
-    </mu-card>
-    <div   class="mu-back-up" style="right: 30px; bottom: 30px;">  <mu-float-button icon="add"  @click="addClick"/> </div>
+      <el-table
+        :data="tableData"
+        v-loading.body="loading"
+        border
+        style="width: 100%">
+        <el-table-column
+          prop="date"
+          :formatter="dateFormat"
+          label="创建日期"
+        >
+        </el-table-column>
+        <el-table-column
+          prop="name"
+          label="名称"
+        >
+        </el-table-column>
+        <!--<el-table-column-->
+        <!--prop="type"-->
+        <!--label="项目类型"-->
+        <!--&gt;-->
+        <!--</el-table-column>-->
+        <el-table-column
+          prop="vesion"
+          label="版本"
+        >
+        </el-table-column>
+
+        <el-table-column
+          prop="progress"
+          label="完成进度"
+        >
+        </el-table-column>
+        <el-table-column
+          prop="type"
+          label="类型"
+        >
+        </el-table-column>
+        <el-table-column
+          fixed="right"
+          label="操作"
+          min-width="100">
+          <template scope="scope">
+            <!--<span> <el-button type="danger" icon="delete" @click="batchDelete">删除</el-button></span>-->
+            <span>
+            <el-button type="danger" plain icon="el-icon-edit"    v-if="user.role.eName=='project_manager'"  @click="editClick(scope.$index, scope.row)">编辑</el-button>
+          </span>
+            <span>
+            <el-button type="primary"  icon="el-icon-info"  plain   @click="readClick(scope.$index, scope.row)">详情</el-button>
+          </span>
+
+          </template>
+        </el-table-column>
+      </el-table>
 
 
   </div>
+
+
 </template>
 
 <script>
+  import api from "../../api"
+  import moment from 'moment'
+  import http from '../../http'
 
+  import {mapGetters} from 'vuex'
 
   export default {
-    data() {
-      return {
-        tableData: [],
-        fixedHeader: true,
-        fixedFooter: true,
 
-        height: '300px',
-        total: 50,
-        current: 1,
-         dialog:false,
+    computed: {
+      ...mapGetters({
+        user: 'userInfo'
 
-      }
+      })
     },
     methods: {
-      readClick(item, row) {
-        // console.log(index, row);
 
-        this.$router.push({
-          path: '/projectInfo',
-          query: {
-            projectId: item.id
-          }
-        })
-      },
+      dateFormat: function (row, col) {
+        let tempdate = row.date;
+        if (tempdate == undefined) {
+          return "";
+        } else {
 
-      editClick(item, row) {
-        // console.log(index, row);
-
-        this.$router.push({
-          path: '/projectEdit',
-          query: {
-            projectId: item.id
-          }
-        })
-      },
-      addClick(item, row) {
-        // console.log(index, row);
-
-        this.$router.push({
-          path: '/projectAdd'
-
-        })
-      },
-      handleClick(){
-        if (this.current<this.tableData.length){
+          return moment(tempdate).format("YYYY-MM-DD");
 
         }
 
-      },
-      open () {
-         this.dialog = true
 
       },
-      close () {
-        this.dialog = false
+      readClick(index, row) {
+        // console.log(index, row);
+        this.$router.push({
+          path: '/projectInfo',
+          query: {
+            projectId: row.id
+          }
+        })
+      },
+
+      editClick(index, row) {
+        // console.log(index, row);
+        this.$router.push({
+          path: '/projectEdit',
+          query: {
+            projectId: row.id
+          }
+        })
+      },
+      newAdd() {
+        this.$router.push('/projectAdd')
+      },
+
+      load() {
+        this.loading=true
+        http.get(api.PROJECT_LIST)
+          .then(res => {
+            this.loading=false
+            this.tableData = res;
+
+          })
       }
     },
-    created() {
-      this.http.get(this.api.projectList)
-        .then(res => {
-          this.tableData = res;
 
-        })
+    data() {
+      return {
+        tableData: [],
+        loading: false
+
+      }
+    }
+    ,
+    created() {
+      this.load()
+
+
     }
 
 
   }
 </script>
 
-<style lang="css">
-
-
-
-  .mu-back-up  {
-    position: fixed;
-    z-index: 100;
-    cursor: pointer;
-
-  }
-</style>
